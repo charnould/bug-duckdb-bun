@@ -17,7 +17,7 @@ const keyword_search = async (keywords) => {
 				FROM ( SELECT *, fts_main_knowledge.match_bm25( id, ? ) AS score FROM knowledge ) sq
 				WHERE score IS NOT NULL
 				ORDER BY score DESC
-				LIMIT 2;`,
+				LIMIT 1;`,
 				[keywords],
 				(err, rows) => {
 					if (err) reject(err);
@@ -46,9 +46,9 @@ try {
 		await keyword_search("garantie"),
 		await keyword_search("locataire"),
 		await keyword_search("bailleurs"),
-		// await keyword_search("action"),
-		// await keyword_search("logement"),
-		// await keyword_search("undefined"),
+		await keyword_search("action"),
+		await keyword_search("logement"),
+		await keyword_search("undefined"),
 	]);
 
 	console.log("RESULTS: ", results);
